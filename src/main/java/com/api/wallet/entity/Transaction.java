@@ -3,6 +3,7 @@ package com.api.wallet.entity;
 import com.api.wallet.entity.enums.TransactionStatusType;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -53,8 +54,8 @@ public class Transaction implements Serializable, Auditable {
     @Column(nullable = false)
     private BigDecimal balance;
 
-    @Column(nullable = false)
-    private Long transactionDestinationId;
+    @Column(name = "transaction_destination_id", nullable = false)
+    private String transactionDestinationId;
 
     @Embedded
     private Audit auditComposition;
