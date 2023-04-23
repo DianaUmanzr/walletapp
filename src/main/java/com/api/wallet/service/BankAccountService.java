@@ -1,12 +1,9 @@
 package com.api.wallet.service;
 
-import com.api.wallet.dto.request.BankAccountRequestDTO;
-import com.api.wallet.dto.request.PaymentRequestDto;
-import com.api.wallet.dto.response.PaymentResponseDto;
+import com.api.wallet.dto.request.BankInformationRequestDTO;
 import com.api.wallet.entity.BankAccount;
 import com.api.wallet.entity.User;
 import com.api.wallet.repository.BankAccountRepository;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -18,15 +15,16 @@ public class BankAccountService {
 
     private final BankAccountRepository bankAccountRepository;
 
-    public Map saveBankAccount(BankAccountRequestDTO bankAccountRequestDTO) {
-        User user = User.builder().name(bankAccountRequestDTO.getFirstName())
-                        .surname(bankAccountRequestDTO.getLastName())
-                        .nationalId(bankAccountRequestDTO.getIdentificationNumber())
+    public Map saveBankAccount(BankInformationRequestDTO bankInformationRequestDTO) {
+
+        User user = User.builder().name(bankInformationRequestDTO.getFirstName())
+                        .surname(bankInformationRequestDTO.getLastName())
+                        .nationalId(bankInformationRequestDTO.getNationalId())
                 .build();
 
         BankAccount bankAccount = BankAccount.builder()
-                .accountNumber(bankAccountRequestDTO.getAccountNumber())
-                .routingNumber(bankAccountRequestDTO.getRoutingNumber())
+                .accountNumber(bankInformationRequestDTO.getAccountNumber())
+                .routingNumber(bankInformationRequestDTO.getRoutingNumber())
                 .user(user).build();
 
                 bankAccountRepository.save(bankAccount);
