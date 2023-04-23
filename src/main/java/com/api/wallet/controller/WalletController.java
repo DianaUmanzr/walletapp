@@ -1,7 +1,7 @@
 package com.api.wallet.controller;
 
-import com.api.wallet.dto.WalletTransactionRequestDto;
-import com.api.wallet.dto.WalletTransactionResponseDto;
+import com.api.wallet.dto.request.WalletTransactionRequestDto;
+import com.api.wallet.dto.response.WalletTransactionResponseDto;
 import com.api.wallet.service.WalletService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

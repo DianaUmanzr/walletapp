@@ -1,7 +1,7 @@
 package com.api.wallet.service;
 
-import com.api.wallet.dto.WalletTransactionRequestDto;
-import com.api.wallet.dto.WalletTransactionResponseDto;
+import com.api.wallet.dto.request.WalletTransactionRequestDto;
+import com.api.wallet.dto.response.WalletTransactionResponseDto;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Value;

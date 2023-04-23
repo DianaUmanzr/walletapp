@@ -1,4 +1,4 @@
-package com.api.wallet.dto;
+package com.api.wallet.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

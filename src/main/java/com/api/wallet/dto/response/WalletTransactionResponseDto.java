@@ -1,4 +1,4 @@
-package com.api.wallet.dto;
+package com.api.wallet.dto.response;
 
 import java.math.BigDecimal;
 import lombok.Builder;

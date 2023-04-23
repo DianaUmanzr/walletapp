@@ -1,12 +1,12 @@
 package com.api.wallet.service;
 
-import com.api.wallet.dto.PaymentRequestDto;
-import com.api.wallet.dto.PaymentResponseDto;
-import com.api.wallet.dto.RequestInfoDTO;
-import com.api.wallet.dto.WalletTransactionRequestDto;
-import com.api.wallet.dto.WalletTransactionResponseDto;
+
+import com.api.wallet.dto.request.PaymentRequestDto;
+import com.api.wallet.dto.response.PaymentResponseDto;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.math.BigDecimal;
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -30,17 +30,17 @@ public class PaymentService {
     }
 
     @CircuitBreaker(name = "payment-service", fallbackMethod = "createPaymentTransactionFallback")
-    public Mono<PaymentResponseDto> createPaymentTransaction(PaymentRequestDto paymentRequestDto) {
+    public PaymentResponseDto createPaymentTransaction(PaymentRequestDto paymentRequestDto) {
         return webClient.post()
                 .uri(externalApiUrl + "/api/v1/payments")
-                .body(BodyInserters.fromValue(paymentRequestDto))
+                .bodyValue(paymentRequestDto)
                 .retrieve()
-                .bodyToMono(PaymentResponseDto.class);
-        //.timeout(Duration.ofSeconds(5));
+                .bodyToMono(PaymentResponseDto.class)
+                .timeout(Duration.ofSeconds(5)).block();
     }
 
-    public Mono<PaymentResponseDto> createPaymentTransactionFallback(PaymentRequestDto paymentRequestDto, Throwable throwable) {
+    public PaymentResponseDto createPaymentTransactionFallback(PaymentRequestDto paymentRequestDto, Throwable throwable) {
         PaymentResponseDto paymentResponseDto = PaymentResponseDto.builder().build();
-        return Mono.just(paymentResponseDto);
+        return paymentResponseDto;
     }
 }
