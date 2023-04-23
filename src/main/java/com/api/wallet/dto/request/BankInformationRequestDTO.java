@@ -18,5 +18,4 @@ public class BankInformationRequestDTO {
     private String nationalId;
     private String accountNumber;
     private String routingNumber;
-    private Long userId;
 }

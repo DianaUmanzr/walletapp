@@ -1,6 +1,7 @@
 package com.api.wallet.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -13,7 +14,9 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WalletTransactionResponseDto {
-    private Long wallet_transaction_id;
+    @JsonProperty("wallet_transaction_id")
+    private Long walletTransactionId;
     private BigDecimal amount;
-    private Long user_id;
+    @JsonProperty("user_id")
+    private Long userId;
 }
