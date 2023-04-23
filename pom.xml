@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.11</version>
+		<version>2.6.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.api</groupId>
@@ -66,11 +66,12 @@
 			<version>1.7.1</version>
 		</dependency>
 
-		<!-- Spring Boot Circuit Breaker -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
-			<version>3.0.1</version>
+			<artifactId>spring-cloud-dependencies</artifactId>
+			<version>2021.0.0</version>
+			<type>pom</type>
+			<scope>import</scope>
 		</dependency>
 
 		<!-- Spring Boot WebClient -->

@@ -1,5 +1,8 @@
 package com.api.wallet.service;
 
+import com.api.wallet.dto.PaymentRequestDto;
+import com.api.wallet.dto.PaymentResponseDto;
+import com.api.wallet.dto.RequestInfoDTO;
 import com.api.wallet.dto.WalletTransactionRequestDto;
 import com.api.wallet.dto.WalletTransactionResponseDto;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -13,32 +16,31 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-public class WalletService {
+public class PaymentService {
 
     private final WebClient webClient;
 
     @Value("${external-api.url}")
     private String externalApiUrl;
 
-    public WalletService(WebClient.Builder webClientBuilder) {
+    public PaymentService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(externalApiUrl)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }
 
-    @CircuitBreaker(name = "wallet-service", fallbackMethod = "createWalletTransactionFallback")
-    public Mono<WalletTransactionResponseDto> createWalletTransaction(WalletTransactionRequestDto walletTransactionRequestDto) {
+    @CircuitBreaker(name = "payment-service", fallbackMethod = "createPaymentTransactionFallback")
+    public Mono<PaymentResponseDto> createPaymentTransaction(PaymentRequestDto paymentRequestDto) {
         return webClient.post()
-                .uri(externalApiUrl + "/wallets/transactions")
-                .body(BodyInserters.fromValue(walletTransactionRequestDto))
+                .uri(externalApiUrl + "/api/v1/payments")
+                .body(BodyInserters.fromValue(paymentRequestDto))
                 .retrieve()
-                .bodyToMono(WalletTransactionResponseDto.class);
-                //.timeout(Duration.ofSeconds(5));
+                .bodyToMono(PaymentResponseDto.class);
+        //.timeout(Duration.ofSeconds(5));
     }
 
-    public Mono<WalletTransactionResponseDto> createWalletTransactionFallback(WalletTransactionRequestDto walletTransactionRequestDto, Throwable throwable) {
-        WalletTransactionResponseDto walletTransactionResponseDto = WalletTransactionResponseDto.builder()
-                .amount(new BigDecimal(10)).build();
-        return Mono.just(walletTransactionResponseDto);
+    public Mono<PaymentResponseDto> createPaymentTransactionFallback(PaymentRequestDto paymentRequestDto, Throwable throwable) {
+        PaymentResponseDto paymentResponseDto = PaymentResponseDto.builder().build();
+        return Mono.just(paymentResponseDto);
     }
 }

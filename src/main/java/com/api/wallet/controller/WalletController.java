@@ -1,7 +1,7 @@
 package com.api.wallet.controller;
 
-import com.api.wallet.dto.WalletTransactionRequest;
-import com.api.wallet.dto.WalletTransactionResponse;
+import com.api.wallet.dto.WalletTransactionRequestDto;
+import com.api.wallet.dto.WalletTransactionResponseDto;
 import com.api.wallet.service.WalletService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +20,9 @@ public class WalletController {
     }
 
     @PostMapping("/transactions")
-    public Mono<WalletTransactionResponse> createWalletTransaction(@RequestBody WalletTransactionRequest walletTransactionRequest) {
-        Mono<WalletTransactionResponse> walletTransactionResponseMono = walletService.createWalletTransaction(walletTransactionRequest);
+    public Mono<WalletTransactionResponseDto> createWalletTransaction(@RequestBody WalletTransactionRequestDto walletTransactionRequestDto) {
+        Mono<WalletTransactionResponseDto> walletTransactionResponseMono = walletService.createWalletTransaction(walletTransactionRequestDto);
         System.out.println(walletTransactionResponseMono);
-        return walletService.createWalletTransaction(walletTransactionRequest);
+        return walletService.createWalletTransaction(walletTransactionRequestDto);
     }
 }
