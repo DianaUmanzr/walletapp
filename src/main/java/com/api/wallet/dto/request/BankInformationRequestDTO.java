@@ -12,10 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BankInformationRequestDTO {
-
+    private Long userId;
     private String firstName;
     private String lastName;
     private String nationalId;
     private String accountNumber;
     private String routingNumber;
+    private String bankName;
 }

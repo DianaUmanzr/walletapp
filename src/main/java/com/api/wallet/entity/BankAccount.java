@@ -26,8 +26,10 @@ public class BankAccount implements Serializable {
 
     protected BankAccount() {}
 
+    private static final long serialVersionUID = 8600252731258980661L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "routing_number", nullable = false)

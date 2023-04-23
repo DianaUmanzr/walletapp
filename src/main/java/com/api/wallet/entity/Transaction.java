@@ -53,6 +53,9 @@ public class Transaction implements Serializable, Auditable {
     @Column(nullable = false)
     private BigDecimal balance;
 
+    @Column(nullable = false)
+    private Long transactionDestinationId;
+
     @Embedded
     private Audit auditComposition;
 
