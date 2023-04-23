@@ -1,14 +1,16 @@
 package com.api.wallet.service;
 
+import com.api.wallet.dto.request.PaymentRequestDto;
 import com.api.wallet.dto.request.WalletTransactionRequestDto;
+import com.api.wallet.dto.response.PaymentResponseDto;
 import com.api.wallet.dto.response.WalletTransactionResponseDto;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.math.BigDecimal;
+import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -27,18 +29,17 @@ public class WalletService {
     }
 
     @CircuitBreaker(name = "wallet-service", fallbackMethod = "createWalletTransactionFallback")
-    public Mono<WalletTransactionResponseDto> createWalletTransaction(WalletTransactionRequestDto walletTransactionRequestDto) {
+    public WalletTransactionResponseDto createWalletTransaction(WalletTransactionRequestDto walletTransactionRequestDto) {
         return webClient.post()
                 .uri(externalApiUrl + "/wallets/transactions")
-                .body(BodyInserters.fromValue(walletTransactionRequestDto))
+                .bodyValue(walletTransactionRequestDto)
                 .retrieve()
-                .bodyToMono(WalletTransactionResponseDto.class);
-                //.timeout(Duration.ofSeconds(5));
+                .bodyToMono(WalletTransactionResponseDto.class)
+                .timeout(Duration.ofSeconds(5)).block();
     }
 
-    public Mono<WalletTransactionResponseDto> createWalletTransactionFallback(WalletTransactionRequestDto walletTransactionRequestDto, Throwable throwable) {
-        WalletTransactionResponseDto walletTransactionResponseDto = WalletTransactionResponseDto.builder()
-                .amount(new BigDecimal(10)).build();
-        return Mono.just(walletTransactionResponseDto);
+    public WalletTransactionResponseDto createWalletTransactionFallback(WalletTransactionRequestDto walletTransactionRequestDto, Throwable throwable) {
+        WalletTransactionResponseDto walletTransactionResponseDto = WalletTransactionResponseDto.builder().build();
+        return walletTransactionResponseDto;
     }
 }
