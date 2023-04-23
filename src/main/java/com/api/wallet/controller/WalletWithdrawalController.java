@@ -5,6 +5,7 @@ import com.api.wallet.dto.response.WalletTransactionResponseDto;
 import com.api.wallet.dto.response.WalletWithdrawalResponseDto;
 import com.api.wallet.service.WalletService;
 import com.api.wallet.service.WalletWithdrawalService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,7 @@ public class WalletWithdrawalController
         this.walletWithdrawalService = walletWithdrawalService;
     }
 
-    @PostMapping
+    @GetMapping
     public WalletWithdrawalResponseDto createWalletTransaction(@RequestParam Long userId) {
         return walletWithdrawalService.createWalletWithdrawal(userId);
     }
