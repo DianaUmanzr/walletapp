@@ -8,6 +8,10 @@ import com.api.wallet.repository.UserRepository;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.jpa.domain.Specification;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.HttpStatus;
@@ -17,7 +21,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BankAccountService {
 
-    private final BankAccountRepository bankAccountRepository;
+	private final BankAccountRepository bankAccountRepository;
 
     private final UserRepository userRepository;
 
@@ -45,4 +49,10 @@ public class BankAccountService {
                 bankAccountRepository.save(bankAccount);
         return Collections.singletonMap("result", true);
     }
+    
+
+    public Optional<BankAccount> findOne(Specification<BankAccount> spec) {
+		return bankAccountRepository.findOne(spec);
+	}
+
 }

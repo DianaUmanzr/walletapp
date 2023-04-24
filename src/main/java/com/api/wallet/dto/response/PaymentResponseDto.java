@@ -8,9 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder(toBuilder = true)
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentResponseDto {
 
     private RequestInfoDTO requestInfo;

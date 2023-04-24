@@ -36,7 +36,7 @@ public class Wallet implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,precision=20, scale=2)
     private BigDecimal balance;
 
     @ManyToOne

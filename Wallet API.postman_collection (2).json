@@ -1,0 +1,152 @@
+{
+	"info": {
+		"_postman_id": "f2a72fb9-4ec9-49a2-a385-321bddc88478",
+		"name": "Wallet API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11592598"
+	},
+	"item": [
+		{
+			"name": "POST WALLET",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": 2000,\n    \"user_id\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/wallets/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"wallets",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST PAYMENT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"source\": {\n        \"type\": \"COMPANY\",\n        \"sourceInformation\": {\n            \"name\": \"ONTOP INC\"\n        },\n        \"account\": {\n            \"accountNumber\": \"0245253419\",\n            \"currency\": \"USD\",\n            \"routingNumber\": \"028444018\"\n        }\n    },\n    \"destination\": {\n        \"name\": \"TONY STARK\",\n        \"account\": {\n            \"accountNumber\": \"1885226711\",\n            \"currency\": \"USD\",\n            \"routingNumber\": \"211927207\"\n        }\n    },\n    \"amount\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"payments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST ACCOUNT",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\":\"1000\",\n    \"firstName\":\"DIANA RAQUEL\",\n    \"lastName\":\"CRUZ UMANZOR\",\n    \"nationalId\":\"05049073-4\",\n    \"accountNumber\":\"0245253419\",\n    \"routingNumber\":\"98876\",\n    \"bankName\":\"BAC\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST_CREDIT_TRANSACTION",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"amount\": 1000,\n  \"accountNumber\": \"0245253419\",\n\"userId\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/wallets/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"wallets",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST_DEBIT_TRANSACTION",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"source\": {\n        \"type\": \"COMPANY\",\n        \"sourceInformation\": {\n            \"name\": \"ONTOP INC\"\n        },\n        \"account\": {\n            \"accountNumber\": \"0245253419\",\n            \"currency\": \"USD\",\n            \"routingNumber\": \"028444018\"\n        }\n    },\n    \"destination\": {\n        \"name\": \"TONY STARK\",\n        \"account\": {\n            \"accountNumber\": \"1885226711\",\n            \"currency\": \"USD\",\n            \"routingNumber\": \"211927207\"\n        }\n    },\n    \"amount\": 1000.00,\n    \"userId\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8082/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"payments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

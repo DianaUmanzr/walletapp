@@ -7,9 +7,9 @@ public enum TransactionStatusType {
     /**
      * Withdrawal Transaction status type.
      */
-    WITHDRAWAL,
+    CREDIT,
     /**
      * Topup transaction status type.
      */
-    TOPUP
+    DEBIT
 }

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@Builder
 @EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WalletWithdrawalResponseDto {

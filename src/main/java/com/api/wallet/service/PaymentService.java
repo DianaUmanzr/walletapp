@@ -26,7 +26,6 @@ public class PaymentService {
                 .build();
     }
 
-    @CircuitBreaker(name = "payment-service", fallbackMethod = "createPaymentTransactionFallback")
     public PaymentResponseDto createPaymentTransaction(PaymentRequestDto paymentRequestDto) {
         return webClient.post()
                 .uri(externalApiUrl + "/api/v1/payments")
@@ -36,8 +35,4 @@ public class PaymentService {
                 .timeout(Duration.ofSeconds(5)).block();
     }
 
-    public PaymentResponseDto createPaymentTransactionFallback(PaymentRequestDto paymentRequestDto, Throwable throwable) {
-        PaymentResponseDto paymentResponseDto = PaymentResponseDto.builder().build();
-        return paymentResponseDto;
-    }
 }

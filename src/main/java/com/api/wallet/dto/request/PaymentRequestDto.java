@@ -1,5 +1,7 @@
 package com.api.wallet.dto.request;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,5 +17,5 @@ public class PaymentRequestDto {
 
     private SourceDTO source;
     private DestinationDTO destination;
-    private int amount;
+    private BigDecimal amount;
 }
