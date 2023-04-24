@@ -57,6 +57,10 @@ public class Transaction implements Serializable, Auditable {
     @Column(name = "transaction_destination_id", nullable = false)
     private String transactionDestinationId;
 
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private BankAccount bankAccount;
+
     @Embedded
     private Audit auditComposition;
 

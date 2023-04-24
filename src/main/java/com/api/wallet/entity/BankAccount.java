@@ -30,6 +30,7 @@ public class BankAccount implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "account_id", nullable = false)
     private Long id;
 
     @Column(name = "routing_number", nullable = false)
