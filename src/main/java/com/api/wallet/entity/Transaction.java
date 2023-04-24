@@ -60,10 +60,6 @@ public class Transaction implements Serializable, Auditable {
     @Embedded
     private Audit auditComposition;
 
-    @ManyToOne
-    @JoinColumn(name = "wallet_id")
-    private Wallet wallet;
-
     public Audit getAuditComposition() {
         return auditComposition;
     }
@@ -123,11 +119,6 @@ public class Transaction implements Serializable, Auditable {
             return this;
         }
 
-        public TransactionBuilder wallet(Wallet wallet) {
-            this.wallet = wallet;
-            return this;
-        }
-
         public Transaction build() {
             Transaction transaction = new Transaction();
             transaction.transactionId = this.transactionId;
@@ -137,7 +128,6 @@ public class Transaction implements Serializable, Auditable {
             transaction.type = this.type;
             transaction.balance = this.balance;
             transaction.auditComposition = this.auditComposition;
-            transaction.wallet = this.wallet;
             return transaction;
         }
     }

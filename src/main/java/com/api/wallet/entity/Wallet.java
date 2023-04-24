@@ -43,9 +43,6 @@ public class Wallet implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
-    private List<Transaction> transactions = new ArrayList<>();
-
     public static final class WalletBuilder {
         private Long id;
         private BigDecimal balance;
