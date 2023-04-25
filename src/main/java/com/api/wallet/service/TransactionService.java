@@ -1,6 +1,7 @@
 package com.api.wallet.service;
 
 import com.api.wallet.dto.response.TransactionDTO;
+import com.api.wallet.entity.Audit;
 import com.api.wallet.entity.BankAccount;
 import com.api.wallet.entity.User;
 import java.util.List;
@@ -64,10 +65,15 @@ public class TransactionService {
 		}, pageable);
 	}
 
-	public Page<TransactionDTO> getTransactionsByAccountIdOrderedDesc(String userId, Pageable pageable) {
+	public Page<TransactionDTO> convertTransactionEntityToDTO(String userId, Pageable pageable) {
 		Page<Transaction> transactions = getTransactionsByUserIdOrderedDesc(userId, pageable);
-		List<TransactionDTO> transactionDTOs = transactions.stream()
-				.map(transaction -> modelMapper.map(transaction, TransactionDTO.class))
+		List<TransactionDTO> transactionDTOs = transactions.getContent().stream()
+				.map(transaction -> {
+					transactions.get().forEach(au ->{
+						transaction.setAuditComposition(au.getAuditComposition());
+					});
+					return modelMapper.map(transaction, TransactionDTO.class);
+				})
 				.collect(Collectors.toList());
 
 		return new PageImpl<>(transactionDTOs, transactions.getPageable(), transactions.getTotalElements());

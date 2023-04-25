@@ -29,7 +29,7 @@ public class TransactionController {
                                                                               @RequestParam(defaultValue = "0") int page,
                                                                               @RequestParam(defaultValue = "1") int size) {
         Pageable pageable = PageRequest.of(page, size, Direction.DESC, "auditComposition.created");
-        Page<TransactionDTO> transactions = transactionService.getTransactionsByAccountIdOrderedDesc(userId, pageable);
+        Page<TransactionDTO> transactions = transactionService.convertTransactionEntityToDTO(userId, pageable);
         return ResponseEntity.ok().body(transactions);
     }
 }

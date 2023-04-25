@@ -1,5 +1,6 @@
 package com.api.wallet.dto.response;
 
+import com.api.wallet.entity.Audit;
 import com.api.wallet.entity.enums.TransactionStatusType;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,8 +16,7 @@ public class TransactionDTO implements Serializable {
 
     private Long transactionId;
     private BigDecimal amount;
-    private LocalDateTime created;
-    private LocalDateTime creator;
+    private Audit auditComposition;
     private BigDecimal balance;
     private BigDecimal fee;
     private String status;
