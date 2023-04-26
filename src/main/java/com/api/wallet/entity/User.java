@@ -22,7 +22,7 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @EqualsAndHashCode(callSuper = false)
 @ToString
-@Table(name = "user")
+@Table(name = "userw")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 8600252731258980661L;
