@@ -1,7 +1,6 @@
 package com.api.wallet.service;
 
 import com.api.wallet.dto.response.TransactionDTO;
-import com.api.wallet.entity.Audit;
 import com.api.wallet.entity.BankAccount;
 import com.api.wallet.entity.User;
 import java.util.List;

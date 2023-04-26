@@ -8,6 +8,8 @@ import com.api.wallet.entity.User;
 import com.api.wallet.entity.Wallet;
 import com.api.wallet.repository.TransactionRepository;
 import com.api.wallet.repository.WalletRepository;
+import exception.CommonErrors;
+import exception.ExceptionUtils;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.Duration;
 import java.util.Optional;
@@ -51,8 +53,8 @@ public class WalletService {
     }
 
     public WalletTransactionResponseDto createWalletTransactionFallback(WalletTransactionRequestDto walletTransactionRequestDto, Throwable throwable) {
-        WalletTransactionResponseDto walletTransactionResponseDto = WalletTransactionResponseDto.builder().build();
-        return walletTransactionResponseDto;
+        ExceptionUtils.throwCallWalletTransactionException(CommonErrors.CALL_WALLET_T_001_ERROR);
+        return WalletTransactionResponseDto.builder().build();
     }
 
     public Optional<Wallet> findWalletByUserId(Long userId) {

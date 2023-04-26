@@ -1,6 +1,5 @@
 package exception;
 
-import com.api.wallet.entity.Wallet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -56,5 +55,32 @@ public class ExceptionAdvice {
         return new ErrorResponse<>(
                 CommonErrors.BANK_001_EXISTED.getCode(),
                 CommonErrors.BANK_001_EXISTED.getMessage());
+    }
+
+    @ExceptionHandler(CallWalletWithdrawalException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse<Object> processCallWalletWithdrawal(CallWalletWithdrawalException ex) {
+        return new ErrorResponse<>(
+                CommonErrors.CALL_WALLET_WD_001_ERROR.getCode(),
+                CommonErrors.CALL_WALLET_WD_001_ERROR.getMessage());
+    }
+
+    @ExceptionHandler(CallWalletTransactionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse<Object> processCallWalletTransaction(CallWalletTransactionException ex) {
+        return new ErrorResponse<>(
+                CommonErrors.CALL_WALLET_T_001_ERROR.getCode(),
+                CommonErrors.CALL_WALLET_T_001_ERROR.getMessage());
+    }
+
+    @ExceptionHandler(CallPaymentTransactionException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorResponse<Object> processCallWalletTransaction(CallPaymentTransactionException ex) {
+        return new ErrorResponse<>(
+                CommonErrors.CALL_PAYMENT_T_001_ERROR.getCode(),
+                CommonErrors.CALL_PAYMENT_T_001_ERROR.getMessage());
     }
 }

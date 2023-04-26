@@ -3,6 +3,8 @@ package com.api.wallet.service;
 
 import com.api.wallet.dto.request.PaymentRequestDto;
 import com.api.wallet.dto.response.PaymentResponseDto;
+import exception.CommonErrors;
+import exception.ExceptionUtils;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.Duration;
 
@@ -26,6 +28,7 @@ public class PaymentService {
                 .build();
     }
 
+    @CircuitBreaker(name = "payment-service", fallbackMethod = "createPaymentFallback")
     public PaymentResponseDto createPaymentTransaction(PaymentRequestDto paymentRequestDto) {
         return webClient.post()
                 .uri(externalApiUrl + "/api/v1/payments")
@@ -35,4 +38,8 @@ public class PaymentService {
                 .timeout(Duration.ofSeconds(5)).block();
     }
 
+    public PaymentResponseDto createPaymentFallback(PaymentRequestDto paymentRequestDto, Throwable throwable) {
+        ExceptionUtils.throwCallPaymentTransactionException(CommonErrors.CALL_PAYMENT_T_001_ERROR);
+        return new PaymentResponseDto();
+    }
 }

@@ -25,4 +25,16 @@ public class ExceptionUtils {
 	public static void throwWalletNotFoundException(BaseCommonError baseCommonError) {
 		throw new WalletNotFoundException(baseCommonError);
 	}
+
+	public static void throwCallWalletWithdrawalException(BaseCommonError baseCommonError) {
+		throw new CallWalletWithdrawalException(baseCommonError);
+	}
+
+	public static void throwCallWalletTransactionException(BaseCommonError baseCommonError) {
+		throw new CallWalletWithdrawalException(baseCommonError);
+	}
+
+	public static void throwCallPaymentTransactionException(BaseCommonError baseCommonError) {
+		throw new CallPaymentTransactionException(baseCommonError);
+	}
 }

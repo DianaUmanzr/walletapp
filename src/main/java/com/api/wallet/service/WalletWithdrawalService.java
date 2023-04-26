@@ -1,8 +1,8 @@
 package com.api.wallet.service;
 
-import com.api.wallet.dto.request.WalletTransactionRequestDto;
-import com.api.wallet.dto.response.WalletTransactionResponseDto;
 import com.api.wallet.dto.response.WalletWithdrawalResponseDto;
+import exception.CommonErrors;
+import exception.ExceptionUtils;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,8 +35,7 @@ public class WalletWithdrawalService {
     }
 
     public WalletWithdrawalResponseDto createWalletWithdrawalFallback(Long userId, Throwable throwable) {
-        WalletWithdrawalResponseDto walletWithdrawalResponseDto = WalletWithdrawalResponseDto.builder()
-                .user_id(userId).build();
-        return walletWithdrawalResponseDto;
+        ExceptionUtils.throwCallWalletWithdrawalException(CommonErrors.CALL_WALLET_WD_001_ERROR);
+        return WalletWithdrawalResponseDto.builder().build();
     }
 }
