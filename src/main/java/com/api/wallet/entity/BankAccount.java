@@ -26,7 +26,7 @@ public class BankAccount implements Serializable {
 
     protected BankAccount() {}
 
-    private static final long serialVersionUID = 8600252731258980661L;
+    private static final long serialVersionUID = 8600254731258980661L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -51,26 +51,6 @@ public class BankAccount implements Serializable {
         private String accountNumber;
         private String bankName;
         private User user;
-
-        public BankAccountBuilder withRoutingNumber(String routingNumber) {
-            this.routingNumber = routingNumber;
-            return this;
-        }
-
-        public BankAccountBuilder withAccountNumber(String accountNumber) {
-            this.accountNumber = accountNumber;
-            return this;
-        }
-
-        public BankAccountBuilder withBankName(String bankName) {
-            this.bankName = bankName;
-            return this;
-        }
-
-        public BankAccountBuilder withUser(User user) {
-            this.user = user;
-            return this;
-        }
 
         public BankAccount build() {
             BankAccount bankAccount = new BankAccount();

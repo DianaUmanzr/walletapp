@@ -14,14 +14,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.actuate.audit.listener.AuditListener;
 
 @Entity
 @Getter
@@ -50,5 +48,8 @@ public class Wallet implements Serializable {
         this.id = id;
         this.balance = balance;
         this.user = user;
+    }
+
+    public Wallet() {
     }
 }

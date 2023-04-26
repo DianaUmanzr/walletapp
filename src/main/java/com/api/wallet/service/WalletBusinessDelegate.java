@@ -84,17 +84,17 @@ public class WalletBusinessDelegate {
 						.build();
 				transactionService.save(transactionToPersist);
 
-				/*if (!walletOptional.isPresent()){
+				if (!walletOptional.isPresent()){
 					Wallet wallet = Wallet.builder()
 							.balance(transactionToPersist.getBalance())
 							.user(bankAccountOptional.get().getUser()).build();
 					walletService.save(wallet);
 				} else {
 					Wallet wallet = walletOptional.get();
+					wallet.setId(wallet.getId());
 					wallet.setBalance(transaction.getBalance().add(walletTransactionRequestDto.getAmount()));
 					walletService.save(wallet);
-
-				}*/
+				}
 			}
 		} else {
 			Transaction transactionToPersist = Transaction
@@ -112,6 +112,18 @@ public class WalletBusinessDelegate {
 					.transactionDestinationId(response.getWalletTransactionId().toString())
 					.type(TransactionStatusType.CREDIT)
 					.build();
+
+			if (!walletOptional.isPresent()){
+				Wallet wallet = Wallet.builder()
+						.balance(transactionToPersist.getBalance())
+						.user(bankAccountOptional.get().getUser()).build();
+				walletService.save(wallet);
+			} else {
+				Wallet wallet = walletOptional.get();
+				wallet.setId(wallet.getId());
+				wallet.setBalance(walletTransactionRequestDto.getAmount());
+				walletService.save(wallet);
+			}
 			
 			transactionService.save(transactionToPersist);
 		}

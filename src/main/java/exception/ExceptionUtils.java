@@ -21,4 +21,8 @@ public class ExceptionUtils {
 	public static void throwBankAccountExistedException(BaseCommonError baseCommonError) {
 		throw new BankAccountExistedException(baseCommonError);
 	}
+
+	public static void throwWalletNotFoundException(BaseCommonError baseCommonError) {
+		throw new WalletNotFoundException(baseCommonError);
+	}
 }
