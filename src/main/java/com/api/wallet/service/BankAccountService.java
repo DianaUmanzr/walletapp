@@ -5,6 +5,8 @@ import com.api.wallet.entity.BankAccount;
 import com.api.wallet.entity.User;
 import com.api.wallet.repository.BankAccountRepository;
 import com.api.wallet.repository.UserRepository;
+import exception.CommonErrors;
+import exception.ExceptionUtils;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -12,9 +14,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.jpa.domain.Specification;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.service.spi.ServiceException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,16 +36,22 @@ public class BankAccountService {
                     .nationalId(bankInformationRequestDTO.getNationalId())
                     .build();
         } else {
-            throw new ServiceException("USER NOT FOUND");
+            ExceptionUtils.throwUserNotFoundException(CommonErrors.USER_001_NOT_FOUND);
         }
 
-        BankAccount bankAccount = BankAccount.builder()
-                .accountNumber(bankInformationRequestDTO.getAccountNumber())
-                .routingNumber(bankInformationRequestDTO.getRoutingNumber())
-                .bankName(bankInformationRequestDTO.getBankName())
-                .user(user).build();
+        Optional<BankAccount> bankAccountPersisted = bankAccountRepository.findBankAccountByAccountNumber(bankInformationRequestDTO.getAccountNumber());
 
-                bankAccountRepository.save(bankAccount);
+        if(!bankAccountPersisted.isPresent()) {
+            BankAccount bankAccount = BankAccount.builder()
+                    .accountNumber(bankInformationRequestDTO.getAccountNumber())
+                    .routingNumber(bankInformationRequestDTO.getRoutingNumber())
+                    .bankName(bankInformationRequestDTO.getBankName())
+                    .user(user).build();
+            bankAccountRepository.save(bankAccount);
+        } else {
+            ExceptionUtils.throwBankAccountExistedException(CommonErrors.BANK_001_EXISTED);
+
+        }
         return Collections.singletonMap("result", true);
     }
     

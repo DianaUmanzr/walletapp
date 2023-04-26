@@ -22,5 +22,4 @@ public class TransactionDTO implements Serializable {
     private String status;
     private String transactionDestinationId;
     private TransactionStatusType transactionStatusType;
-    private Long userId;
 }

@@ -1,5 +1,7 @@
 package com.api.wallet.service;
 
+import com.api.wallet.entity.User;
+import com.api.wallet.entity.Wallet;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -9,11 +11,13 @@ import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,17 +50,18 @@ public class WalletBusinessDelegate {
 		
 		Page<Transaction> transactions = transactionService.getLastBalanacedByAccountNumber(walletInformationRequestDTO.getAccountNumber());
 		List<Transaction> transactionsList = transactions.getContent();
-		
+
 		WalletTransactionResponseDto response = walletService.createWalletTransaction(walletTransactionRequestDto);
-		
+
+		Optional<Wallet> walletOptional = walletService.findWalletByUserId(walletInformationRequestDTO.getUserId());
 		Optional<BankAccount> bankAccountOptional =  bankAccountService.findOne(new Specification<BankAccount>() {
-			
 			@Override
 			public Predicate toPredicate(Root<BankAccount> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				return criteriaBuilder.equal(root.get("accountNumber"), walletInformationRequestDTO.getAccountNumber());
 			}
 		});
-		
+
+
 		if(!Objects.isNull(transactions) && !transactions.isEmpty()) {
 			Optional<Transaction> optional = transactionsList.stream().findFirst();
 			if(optional.isPresent()) {
@@ -77,10 +82,21 @@ public class WalletBusinessDelegate {
 						.transactionDestinationId(response.getWalletTransactionId().toString())
 						.type(TransactionStatusType.CREDIT)
 						.build();
-				
 				transactionService.save(transactionToPersist);
+
+				/*if (!walletOptional.isPresent()){
+					Wallet wallet = Wallet.builder()
+							.balance(transactionToPersist.getBalance())
+							.user(bankAccountOptional.get().getUser()).build();
+					walletService.save(wallet);
+				} else {
+					Wallet wallet = walletOptional.get();
+					wallet.setBalance(transaction.getBalance().add(walletTransactionRequestDto.getAmount()));
+					walletService.save(wallet);
+
+				}*/
 			}
-		}else {
+		} else {
 			Transaction transactionToPersist = Transaction
 					.builder()
 					.amount(walletTransactionRequestDto.getAmount())

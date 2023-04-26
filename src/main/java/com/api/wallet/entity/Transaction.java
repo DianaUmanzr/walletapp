@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.audit.listener.AuditListener;
 @Table(name = "transaction")
 public class Transaction implements Serializable, Auditable {
 
-    public Transaction(Long transactionId, BigDecimal amount, BigDecimal fee, String status, TransactionStatusType type,
+    protected Transaction(Long transactionId, BigDecimal amount, BigDecimal fee, String status, TransactionStatusType type,
 			BigDecimal balance, String transactionDestinationId, Audit auditComposition, BankAccount bankAccount) {
 		super();
 		this.transactionId = transactionId;

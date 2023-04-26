@@ -1,7 +1,6 @@
 package com.api.wallet.controller;
 
 import com.api.wallet.dto.request.BankInformationRequestDTO;
-import com.api.wallet.dto.response.PaymentResponseDto;
 import com.api.wallet.service.BankAccountService;
 import java.util.Map;
 import org.springframework.web.bind.annotation.PostMapping;

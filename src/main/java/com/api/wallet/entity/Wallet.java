@@ -1,5 +1,6 @@
 package com.api.wallet.entity;
 
+import com.api.wallet.entity.enums.TransactionStatusType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,21 +21,21 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.boot.actuate.audit.listener.AuditListener;
 
 @Entity
 @Getter
 @Setter
-@Builder(toBuilder = true)
+@Builder
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Table(name = "wallet")
 public class Wallet implements Serializable {
 
-    protected Wallet() {
-    }
+    private static final long serialVersionUID = 8600252731258980661L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(nullable = false,precision=20, scale=2)
@@ -43,22 +45,10 @@ public class Wallet implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public static final class WalletBuilder {
-        private Long id;
-        private BigDecimal balance;
-
-        private WalletBuilder() {}
-
-
-        public static WalletBuilder awb() {
-            return new WalletBuilder();
-        }
-
-        public WalletBuilder build() {
-            WalletBuilder w = new WalletBuilder();
-            w.id = this.id;
-            w.balance = this.balance;
-            return w;
-        }
+    public Wallet(Long id, BigDecimal balance, User user) {
+        super();
+        this.id = id;
+        this.balance = balance;
+        this.user = user;
     }
 }

@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.Getter;
@@ -29,7 +26,7 @@ public class Audit {
     @Column(name = "modified", columnDefinition = "TIMESTAMP")
     private LocalDateTime modified;
 
-    protected Audit(){}
+    public Audit(){}
 
     public static final class AuditBuilder {
         private String creator;
