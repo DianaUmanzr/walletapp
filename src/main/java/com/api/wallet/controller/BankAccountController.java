@@ -5,9 +5,11 @@ import com.api.wallet.service.BankAccountService;
 import java.util.Map;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/accounts")
 public class BankAccountController {
 
     private final BankAccountService bankAccountService;
@@ -16,7 +18,7 @@ public class BankAccountController {
         this.bankAccountService = bankAccountService;
     }
 
-    @PostMapping("/account")
+    @PostMapping
     public Map createBankAccount(@RequestBody BankInformationRequestDTO bankInformationRequestDTO) {
         return bankAccountService.saveBankAccount(bankInformationRequestDTO);
     }

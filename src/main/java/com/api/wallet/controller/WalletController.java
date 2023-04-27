@@ -18,7 +18,7 @@ public class WalletController {
         this.walletBusinessDelegate = walletBusinessDelegate;
     }
 
-    @PostMapping("/transactions")
+    @PostMapping("/credit-wallet")
     public WalletTransactionResponseDto createWalletTransaction(@RequestBody WalletInformationRequestDTO walletTransactionRequestDto) {
         return walletBusinessDelegate.createWalletTransaction(walletTransactionRequestDto);
     }
