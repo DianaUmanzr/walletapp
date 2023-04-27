@@ -71,7 +71,13 @@ wallet-app
 │   │   │   │   │   ├── WalletRepository.java
 │   │   │   │   ├── service
 │   │   │   │   │   ├── BankAccountService.java
-│
+│   │   │   │   │   ├── PaymentBusinessDelegate.java
+│   │   │   │   │   ├── PaymentService.java
+│   │   │   │   │   ├── TransactionService.java
+│   │   │   │   │   ├── WalletBusinessDelegate.java
+│   │   │   │   │   ├── WalletWithdrawalService.java
+│   │   │   │   │   ├── WalletService.java
+│   │   │   │   ├── exception
 
 ```
 
